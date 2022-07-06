@@ -12,6 +12,10 @@ class SignIn extends StatefulWidget {
 
 class _SignInState extends State<SignIn> {
   final AuthService _auth = AuthService();
+  //text field state
+  String email = "";
+  String password = "";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,17 +26,39 @@ class _SignInState extends State<SignIn> {
           title: Text("Sign in to Brew Crew"),
         ),
         body: Container(
-            padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
-            child: ElevatedButton(
-                child: Text("Sign in anonymously"),
-                onPressed: () async {
-                  dynamic result = await _auth.signInAnon();
-                  if (result == null) {
-                    print("Error signing in");
-                  } else {
-                    print("Signed in");
-                    print(result);
-                  }
-                })));
+          padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
+          child: Form(
+            child: Column(
+              children: [
+                SizedBox(height: 20.0),
+                TextFormField(
+                  onChanged: (value) {
+                    setState(() => email = value);
+                  }, //email field
+                ),
+                SizedBox(height: 20.0),
+                TextFormField(
+                  onChanged: (value) {
+                    setState(() => password = value);
+                  },
+                  obscureText: true,
+                ),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.pink[400],
+                  ),
+                  onPressed: () async {
+                    print(email);
+                    print(password);
+                  },
+                  child: Text(
+                    "Sign in",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                )
+              ],
+            ),
+          ),
+        ));
   }
 }
