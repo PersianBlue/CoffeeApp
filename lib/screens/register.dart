@@ -1,18 +1,20 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables, avoid_print
+// ignore_for_file: prefer_const_constructors, avoid_print, prefer_const_constructors_in_immutables
 
 import "package:flutter/material.dart";
 import 'package:flutter_coffee_brew/services/auth.dart';
 
-class SignIn extends StatefulWidget {
+class Register extends StatefulWidget {
+  // Register({Key? key}) : super(key: key);
+
   final Function toggleView;
 
-  SignIn({Key? key, required this.toggleView}) : super(key: key);
+  Register({Key? key, required this.toggleView}) : super(key: key);
 
   @override
-  State<SignIn> createState() => _SignInState();
+  State<Register> createState() => _RegisterState();
 }
 
-class _SignInState extends State<SignIn> {
+class _RegisterState extends State<Register> {
   final AuthService _auth = AuthService();
   //text field state
   String email = "";
@@ -25,14 +27,14 @@ class _SignInState extends State<SignIn> {
         appBar: AppBar(
           backgroundColor: Colors.brown[400],
           elevation: 0.0,
-          title: Text("Sign in to Brew Crew"),
+          title: Text("Sign up to Brew Crew"),
           actions: [
             ElevatedButton.icon(
               onPressed: () {
                 widget.toggleView();
               },
               icon: Icon(Icons.person),
-              label: Text("Register"),
+              label: Text("Sign In"),
             ),
           ],
         ),
@@ -63,7 +65,7 @@ class _SignInState extends State<SignIn> {
                     print(password);
                   },
                   child: Text(
-                    "Sign in",
+                    "Register",
                     style: TextStyle(color: Colors.white),
                   ),
                 )
