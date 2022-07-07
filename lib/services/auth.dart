@@ -2,6 +2,7 @@
 
 import "package:firebase_auth/firebase_auth.dart";
 import 'package:flutter_coffee_brew/models/coffee_user.dart';
+import 'package:flutter_coffee_brew/services/database.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -49,7 +50,11 @@ class AuthService {
       UserCredential result = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
       User? user = result.user;
-      return _userFromFirebaseUser(user!);
+
+      //create a nwe document for the user with the uid
+      await DatabaseService(user!.uid).updateUserData("0", "nwq member", 100);
+
+      return _userFromFirebaseUser(user);
     } catch (e) {
       print(e);
       rethrow;
