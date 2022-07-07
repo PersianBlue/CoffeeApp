@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import "package:cloud_firestore/cloud_firestore.dart";
 
 class DatabaseService {
@@ -6,11 +8,12 @@ class DatabaseService {
   // collection reference
   final CollectionReference brewCollection =
       FirebaseFirestore.instance.collection("brews");
-  Future updateUserData(String sugars, String name, int strength) async {
-    return await brewCollection.doc(uid).set({
+  Future<void> updateUserData(String sugars, String name, int strength) async {
+    await brewCollection.doc(uid).set({
       "sugars": sugars,
       "name": name,
       "strength": strength,
     });
+    print("User data has been set");
   }
 }

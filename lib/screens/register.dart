@@ -79,16 +79,20 @@ class _RegisterState extends State<Register> {
                       onPressed: () async {
                         try {
                           if (_formKey.currentState!.validate()) {
-                            loading = true;
+                            setState(() {
+                              loading = true;
+                            });
                             dynamic result = await _auth
                                 .registerWithEmailAndPassword(email, password);
                           }
-                        } catch (e) {
-                          setState(() => error = e.toString().split(']')[1]);
-                        } finally {
                           if (loading) {
                             setState(() => loading = false);
                           }
+                        } catch (e) {
+                          setState(() {
+                            error = e.toString().split(']')[1];
+                            loading = false;
+                          });
                         }
                       },
                       child: Text(

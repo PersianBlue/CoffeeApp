@@ -83,13 +83,15 @@ class _SignInState extends State<SignIn> {
                             setState((() => loading = true));
                             dynamic result = await _auth
                                 .signInWithEmailAndPassword(email, password);
+                            setState(() {
+                              loading = false;
+                            });
                           }
                         } catch (e) {
-                          setState(() => error = e.toString());
-                        } finally {
-                          if (loading) {
-                            setState(() => loading = false);
-                          }
+                          setState(() {
+                            error = e.toString();
+                            loading = false;
+                          });
                         }
                       },
                       child: Text(

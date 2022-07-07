@@ -16,6 +16,7 @@ import 'package:provider/provider.dart';
 //   runApp(MyApp());
 // }
 void main() async {
+  print("Loading firebase....");
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,

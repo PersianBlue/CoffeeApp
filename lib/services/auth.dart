@@ -37,7 +37,15 @@ class AuthService {
       UserCredential result = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
       User? user = result.user;
-      return _userFromFirebaseUser(user!);
+
+      //testing
+      DatabaseService(user!.uid)
+          .updateUserData("0", "new member", 100)
+          .then((response) => _userFromFirebaseUser(user))
+          .catchError((error) {
+        print(error);
+        _userFromFirebaseUser(user);
+      });
     } catch (e) {
       print(e);
       rethrow;
@@ -51,10 +59,14 @@ class AuthService {
           email: email, password: password);
       User? user = result.user;
 
-      //create a nwe document for the user with the uid
-      await DatabaseService(user!.uid).updateUserData("0", "nwq member", 100);
-
-      return _userFromFirebaseUser(user);
+      //create a new document for the user with the uid
+      DatabaseService(user!.uid)
+          .updateUserData("0", "new member", 100)
+          .then((response) => _userFromFirebaseUser(user))
+          .catchError((error) {
+        print(error);
+        _userFromFirebaseUser(user);
+      });
     } catch (e) {
       print(e);
       rethrow;
