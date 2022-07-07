@@ -3,8 +3,8 @@
 import "package:cloud_firestore/cloud_firestore.dart";
 
 class DatabaseService {
-  String uid = "";
-  DatabaseService(this.uid);
+  String? uid = "";
+  DatabaseService({this.uid});
   // collection reference
   final CollectionReference brewCollection =
       FirebaseFirestore.instance.collection("brews");
@@ -15,5 +15,11 @@ class DatabaseService {
       "strength": strength,
     });
     print("User data has been set");
+  }
+
+  //get brews stream
+
+  Stream<QuerySnapshot> get brews {
+    return brewCollection.snapshots();
   }
 }

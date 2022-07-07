@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables, avoid_print
+// ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables, avoid_print, unused_local_variable
 
 import "package:flutter/material.dart";
 import 'package:flutter_coffee_brew/services/auth.dart';

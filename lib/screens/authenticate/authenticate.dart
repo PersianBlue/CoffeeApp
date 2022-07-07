@@ -2,7 +2,7 @@
 
 import "package:flutter/material.dart";
 import 'package:flutter_coffee_brew/screens/authenticate/sign_in.dart';
-import 'package:flutter_coffee_brew/screens/register.dart';
+import 'package:flutter_coffee_brew/screens/authenticate/register.dart';
 
 class Authenticate extends StatefulWidget {
   Authenticate({Key? key}) : super(key: key);

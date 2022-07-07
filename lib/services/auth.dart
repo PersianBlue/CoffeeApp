@@ -39,7 +39,7 @@ class AuthService {
       User? user = result.user;
 
       //testing
-      DatabaseService(user!.uid)
+      DatabaseService(uid: user!.uid)
           .updateUserData("0", "new member", 100)
           .then((response) => _userFromFirebaseUser(user))
           .catchError((error) {
@@ -60,7 +60,7 @@ class AuthService {
       User? user = result.user;
 
       //create a new document for the user with the uid
-      DatabaseService(user!.uid)
+      DatabaseService(uid: user!.uid)
           .updateUserData("0", "new member", 100)
           .then((response) => _userFromFirebaseUser(user))
           .catchError((error) {
