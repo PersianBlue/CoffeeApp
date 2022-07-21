@@ -2,6 +2,7 @@
 
 import "package:flutter/material.dart";
 import 'package:flutter_coffee_brew/models/brew.dart';
+import 'package:flutter_coffee_brew/screens/home/brew_tile.dart';
 import "package:provider/provider.dart";
 
 class BrewList extends StatefulWidget {
@@ -14,24 +15,26 @@ class BrewList extends StatefulWidget {
 class _BrewListState extends State<BrewList> {
   @override
   Widget build(BuildContext context) {
+    final brews = Provider.of<List<Brew>?>(context) ?? [];
     try {
-      final brews = Provider.of<List<Brew>?>(context);
-      if (brews != null) {
-        // brews.forEach((brew) {
-        //   print(brew.name);
-        //   print(brew.sugars);
-        //   print(brew.strength);
-        // });
-        for (var brew in brews) {
-          print(brew.name);
-          print(brew.sugars);
-          print(brew.strength);
-        }
-      } //end if
+      // brews.forEach((brew) {
+      //   print(brew.name);
+      //   print(brew.sugars);
+      //   print(brew.strength);
+      // });
+      for (var brew in brews) {
+        print(brew.name);
+        print(brew.sugars);
+        print(brew.strength);
+      }
     } catch (e) {
       print("Exception in BrewListState in brew_list.dart");
       print(e.toString());
     }
-    return Container();
+    return ListView.builder(
+        itemCount: brews.length,
+        itemBuilder: (context, index) {
+          return BrewTile(brew: brews[index]);
+        });
   }
 }
