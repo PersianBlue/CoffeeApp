@@ -38,8 +38,8 @@ class _SettingsFormState extends State<SettingsForm> {
             SizedBox(height: 20.0),
             //dropdown
             DropdownButtonFormField(
+              value: _currentSugars == '' ? sugars[0] : sugars[0],
               decoration: textInputDecoration,
-              value: _currentSugars,
               items: sugars.map((sugar) {
                 return DropdownMenuItem(
                   value: sugar,
