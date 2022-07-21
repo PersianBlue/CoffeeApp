@@ -1,7 +1,7 @@
-// ignore_for_file: avoid_unnecessary_containers, prefer_const_constructors, no_leading_underscores_for_local_identifiers, avoid_print
+// ignore_for_file: avoid_unnecessary_containers, prefer_const_constructors, no_leading_underscores_for_local_identifiers, avoid_print, prefer_const_literals_to_create_immutables
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_coffee_brew/models/brew.dart';
 import 'package:flutter_coffee_brew/services/auth.dart';
 import 'package:flutter_coffee_brew/services/database.dart';
 import "package:provider/provider.dart";
@@ -13,13 +13,13 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final AuthService _auth = AuthService();
-    return StreamProvider<QuerySnapshot<Object?>?>.value(
+    return StreamProvider<List<Brew>>.value(
       value: DatabaseService().brews,
       catchError: (_, __) {
         print("Error in StreamProvider in home.dart!");
-        return null;
+        return [];
       },
-      initialData: null,
+      initialData: [],
       child: Scaffold(
         backgroundColor: Colors.brown[50],
         appBar: AppBar(
