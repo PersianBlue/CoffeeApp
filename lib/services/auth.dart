@@ -36,16 +36,16 @@ class AuthService {
     try {
       UserCredential result = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
-      User? user = result.user;
+      // User? user = result.user;
 
       //testing
-      DatabaseService(uid: user!.uid)
-          .updateUserData("0", "new member", 100)
-          .then((response) => _userFromFirebaseUser(user))
-          .catchError((error) {
-        print(error);
-        _userFromFirebaseUser(user);
-      });
+      // DatabaseService(uid: user!.uid)
+      //     .updateUserData("0", "New member", 100)
+      //     .then((response) => _userFromFirebaseUser(user))
+      //     .catchError((error) {
+      //   print(error);
+      //   _userFromFirebaseUser(user);
+      // });
     } catch (e) {
       print(e);
       rethrow;
