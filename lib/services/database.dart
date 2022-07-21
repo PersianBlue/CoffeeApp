@@ -2,6 +2,7 @@
 
 import "package:cloud_firestore/cloud_firestore.dart";
 import 'package:flutter_coffee_brew/models/brew.dart';
+import 'package:flutter_coffee_brew/models/coffee_user.dart';
 
 class DatabaseService {
   String? uid = "";
@@ -32,9 +33,24 @@ class DatabaseService {
     }).toList();
   }
 
+  //user data from snapshot
+  UserData _userDataFromSnapshot(DocumentSnapshot snapshot) {
+    return UserData(
+      uid: uid!,
+      name: snapshot.get("name"),
+      sugars: snapshot.get("sugars"),
+      strength: snapshot.get("strength"),
+    );
+  }
+
   //get brews stream
 
   Stream<List<Brew>> get brews {
     return brewCollection.snapshots().map(_brewListFromSnapshot);
+  }
+
+  //get user doc stream
+  Stream<UserData> get userData {
+    return brewCollection.doc(uid).snapshots().map(_userDataFromSnapshot);
   }
 }
