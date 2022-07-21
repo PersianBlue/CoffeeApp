@@ -22,7 +22,7 @@ class _SettingsFormState extends State<SettingsForm> {
 
   String _currentName = "";
   String _currentSugars = "";
-  int _currentStrength = 100;
+  int _currentStrength = 0;
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<CoffeeUser>(context);
@@ -32,6 +32,9 @@ class _SettingsFormState extends State<SettingsForm> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             UserData userData = snapshot.data!;
+            if (_currentStrength == 0) {
+              _currentStrength = userData.strength;
+            }
             return Form(
                 key: _formKey,
                 child: Column(
@@ -67,10 +70,14 @@ class _SettingsFormState extends State<SettingsForm> {
                     ),
                     //slider
                     Slider(
-                      value: (_currentStrength == 100.0
-                              ? _currentStrength
-                              : userData.strength)
+                      value: (_currentStrength == 0
+                              ? userData.strength
+                              : _currentStrength)
                           .toDouble(),
+                      // value: (_currentStrength == 100
+                      //         ? _currentStrength
+                      //         : userData.strength)
+                      //     .toDouble(),
                       activeColor: Colors.brown[_currentStrength],
                       inactiveColor: Colors.brown[_currentStrength],
                       min: 100.0,
@@ -84,9 +91,21 @@ class _SettingsFormState extends State<SettingsForm> {
                         primary: Colors.pink[400],
                       ),
                       onPressed: () async {
-                        print(_currentName);
-                        print(_currentSugars);
-                        print(_currentStrength);
+                        if (_formKey.currentState!.validate()) {
+                          String sugars = (_currentSugars == "")
+                              ? userData.sugars
+                              : _currentSugars;
+                          String name = (_currentName == "")
+                              ? userData.name
+                              : _currentName;
+                          int strength = (_currentStrength == 0)
+                              ? userData.strength
+                              : _currentStrength;
+
+                          await DatabaseService(uid: user.uid)
+                              .updateUserData(sugars, name, strength);
+                        }
+                        Navigator.pop(context);
                       },
                       child: Text(
                         "Update",
